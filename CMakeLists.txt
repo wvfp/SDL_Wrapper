@@ -17,7 +17,10 @@ file(GLOB RES "./res" )
 file(COPY ${RES} DESTINATION ${CMAKE_BINARY_DIR})
 
 #添加头文件搜索路径
-#include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}*)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/SDL/SDL2/include)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/SDL/SDL2_image/include)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/SDL/SDL2_mixer/include)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/SDL/SDL2_ttf/include)
 #添加lib加载路径
 #link_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}*)
 #link_libraries()
@@ -32,12 +35,23 @@ add_subdirectory(SDL/SDL2)
 add_subdirectory(SDL/SDL2_image)
 add_subdirectory(SDL/SDL2_ttf)
 
+add_subdirectory(src/Base/Core)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/src/Base/Core)
 
+add_subdirectory(src/Base/Color)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/src/Base/Color)
+
+add_subdirectory(src/Base/Point)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/src/Base/Point)
+
+add_subdirectory(src/Base/Window)
+include_directories(SYSTEM ${CMAKE_CURRENT_SOURCE_DIR}/src/Base/Window)
 
 
 set(SRC test/main.cpp)
 
 add_executable(${ProjectName} ${SRC})
 
-target_link_libraries(${ProjectName} SDL2 SDL2_mixer SDL2_ttf SDL2_image SDL2_test)
+target_link_libraries(${ProjectName} SDL2 SDL2_mixer SDL2_ttf 
+                    SDL2_image SDL2_test Core Color Point Window )
 
